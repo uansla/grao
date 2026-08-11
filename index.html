@@ -1,966 +1,664 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CodeFlow | Visual Development Platform</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Roboto', sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background-color: #f9fbfd;
-        }
-        
-        h1, h2, h3, h4 {
-            font-family: 'Poppins', sans-serif;
-            font-weight: 600;
-            line-height: 1.3;
-        }
-        
-        .container {
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        /* Header & Navigation */
-        header {
-            background-color: #fff;
-            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
-            position: fixed;
-            width: 100%;
-            z-index: 1000;
-        }
-        
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 0;
-        }
-        
-        .logo {
-            display: flex;
-            align-items: center;
-        }
-        
-        .logo-icon {
-            color: #4361ee;
-            font-size: 28px;
-            margin-right: 10px;
-        }
-        
-        .logo-text {
-            font-family: 'Poppins', sans-serif;
-            font-size: 24px;
-            font-weight: 700;
-            color: #333;
-        }
-        
-        .logo-text span {
-            color: #4361ee;
-        }
-        
-        .nav-links {
-            display: flex;
-            list-style: none;
-        }
-        
-        .nav-links li {
-            margin-left: 30px;
-        }
-        
-        .nav-links a {
-            text-decoration: none;
-            color: #555;
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-        
-        .nav-links a:hover {
-            color: #4361ee;
-        }
-        
-        .cta-button {
-            background-color: #4361ee;
-            color: white;
-            border: none;
-            padding: 12px 28px;
-            border-radius: 6px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background-color 0.3s, transform 0.2s;
-        }
-        
-        .cta-button:hover {
-            background-color: #3a56d4;
-            transform: translateY(-2px);
-        }
-        
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 24px;
-            color: #333;
-            cursor: pointer;
-        }
-        
-        /* Hero Section */
-        .hero {
-            padding: 150px 0 100px;
-            background: linear-gradient(135deg, #f0f4ff 0%, #f9fbfd 100%);
-        }
-        
-        .hero-content {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-        
-        .hero-text {
-            flex: 1;
-            padding-right: 40px;
-        }
-        
-        .hero-text h1 {
-            font-size: 48px;
-            margin-bottom: 20px;
-            color: #222;
-        }
-        
-        .hero-text h1 span {
-            color: #4361ee;
-        }
-        
-        .hero-text p {
-            font-size: 18px;
-            color: #666;
-            margin-bottom: 30px;
-            max-width: 600px;
-        }
-        
-        .hero-buttons {
-            display: flex;
-            gap: 15px;
-        }
-        
-        .secondary-button {
-            background-color: white;
-            color: #4361ee;
-            border: 2px solid #4361ee;
-            padding: 12px 28px;
-            border-radius: 6px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        
-        .secondary-button:hover {
-            background-color: #f0f4ff;
-        }
-        
-        .hero-image {
-            flex: 1;
-            text-align: center;
-        }
-        
-        .hero-image img {
-            max-width: 100%;
-            border-radius: 10px;
-            box-shadow: 0 20px 40px rgba(67, 97, 238, 0.15);
-        }
-        
-        /* Features Section */
-        .section-title {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-        
-        .section-title h2 {
-            font-size: 36px;
-            color: #222;
-            margin-bottom: 15px;
-        }
-        
-        .section-title p {
-            color: #666;
-            max-width: 700px;
-            margin: 0 auto;
-        }
-        
-        .features {
-            padding: 100px 0;
-            background-color: white;
-        }
-        
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-        }
-        
-        .feature-card {
-            background: #fff;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        
-        .feature-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-        }
-        
-        .feature-icon {
-            background-color: #eef2ff;
-            color: #4361ee;
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 20px;
-            font-size: 28px;
-        }
-        
-        .feature-card h3 {
-            font-size: 22px;
-            margin-bottom: 15px;
-        }
-        
-        .feature-card p {
-            color: #666;
-        }
-        
-        /* Benefits Section */
-        .benefits {
-            padding: 100px 0;
-            background-color: #f0f4ff;
-        }
-        
-        .benefits-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-        }
-        
-        .benefit-item {
-            text-align: center;
-            padding: 30px 20px;
-        }
-        
-        .benefit-icon {
-            color: #4361ee;
-            font-size: 40px;
-            margin-bottom: 20px;
-        }
-        
-        .benefit-item h3 {
-            font-size: 22px;
-            margin-bottom: 15px;
-        }
-        
-        .benefit-item p {
-            color: #666;
-        }
-        
-        /* Testimonials */
-        .testimonials {
-            padding: 100px 0;
-            background-color: white;
-        }
-        
-        .testimonial-slider {
-            max-width: 800px;
-            margin: 0 auto;
-            position: relative;
-        }
-        
-        .testimonial {
-            background: #f9fbfd;
-            padding: 40px;
-            border-radius: 10px;
-            text-align: center;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-        }
-        
-        .testimonial-text {
-            font-size: 18px;
-            font-style: italic;
-            margin-bottom: 30px;
-            color: #555;
-        }
-        
-        .testimonial-author {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .author-avatar {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background-color: #ddd;
-            margin-right: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            color: #4361ee;
-            font-size: 24px;
-        }
-        
-        .author-info h4 {
-            font-size: 18px;
-            margin-bottom: 5px;
-        }
-        
-        .author-info p {
-            color: #777;
-            font-size: 14px;
-        }
-        
-        /* Pricing Section */
-        .pricing {
-            padding: 100px 0;
-            background-color: #f9fbfd;
-        }
-        
-        .pricing-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-        }
-        
-        .pricing-card {
-            background: white;
-            border-radius: 10px;
-            padding: 40px 30px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
-            text-align: center;
-            transition: transform 0.3s;
-        }
-        
-        .pricing-card.featured {
-            border-top: 5px solid #4361ee;
-            transform: scale(1.05);
-            position: relative;
-        }
-        
-        .featured-badge {
-            position: absolute;
-            top: -12px;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: #4361ee;
-            color: white;
-            padding: 5px 20px;
-            border-radius: 20px;
-            font-size: 14px;
-            font-weight: 600;
-        }
-        
-        .pricing-card:hover {
-            transform: translateY(-10px);
-        }
-        
-        .pricing-card.featured:hover {
-            transform: scale(1.05) translateY(-10px);
-        }
-        
-        .plan-name {
-            font-size: 24px;
-            margin-bottom: 15px;
-            color: #333;
-        }
-        
-        .plan-price {
-            font-size: 48px;
-            font-weight: 700;
-            color: #4361ee;
-            margin-bottom: 20px;
-        }
-        
-        .plan-price span {
-            font-size: 16px;
-            color: #777;
-        }
-        
-        .plan-features {
-            list-style: none;
-            margin-bottom: 30px;
-        }
-        
-        .plan-features li {
-            padding: 10px 0;
-            border-bottom: 1px solid #eee;
-            color: #555;
-        }
-        
-        .plan-features li:last-child {
-            border-bottom: none;
-        }
-        
-        /* CTA Section */
-        .cta-section {
-            padding: 100px 0;
-            background: linear-gradient(135deg, #4361ee 0%, #3a56d4 100%);
-            text-align: center;
-            color: white;
-        }
-        
-        .cta-section h2 {
-            font-size: 36px;
-            margin-bottom: 20px;
-        }
-        
-        .cta-section p {
-            font-size: 18px;
-            max-width: 700px;
-            margin: 0 auto 30px;
-            opacity: 0.9;
-        }
-        
-        .cta-section .cta-button {
-            background-color: white;
-            color: #4361ee;
-            font-size: 16px;
-            padding: 15px 40px;
-        }
-        
-        .cta-section .cta-button:hover {
-            background-color: #f0f4ff;
-        }
-        
-        /* Footer */
-        footer {
-            background-color: #222;
-            color: #ccc;
-            padding: 70px 0 20px;
-        }
-        
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 40px;
-            margin-bottom: 50px;
-        }
-        
-        .footer-column h3 {
-            font-size: 20px;
-            color: white;
-            margin-bottom: 25px;
-        }
-        
-        .footer-links {
-            list-style: none;
-        }
-        
-        .footer-links li {
-            margin-bottom: 12px;
-        }
-        
-        .footer-links a {
-            color: #aaa;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-        
-        .footer-links a:hover {
-            color: #4361ee;
-        }
-        
-        .copyright {
-            text-align: center;
-            padding-top: 20px;
-            border-top: 1px solid #444;
-            font-size: 14px;
-            color: #888;
-        }
-        
-        /* Responsive Design */
-        @media (max-width: 992px) {
-            .hero-content {
-                flex-direction: column;
-            }
-            
-            .hero-text {
-                padding-right: 0;
-                margin-bottom: 50px;
-                text-align: center;
-            }
-            
-            .hero-text p {
-                margin: 0 auto 30px;
-            }
-            
-            .pricing-card.featured {
-                transform: none;
-            }
-            
-            .pricing-card.featured:hover {
-                transform: translateY(-10px);
-            }
-        }
-        
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-            
-            .mobile-menu-btn {
-                display: block;
-            }
-            
-            .hero-text h1 {
-                font-size: 36px;
-            }
-            
-            .section-title h2 {
-                font-size: 30px;
-            }
-            
-            .hero-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .hero-buttons button {
-                width: 100%;
-                max-width: 300px;
-            }
-        }
-        
-        @media (max-width: 576px) {
-            .hero {
-                padding: 130px 0 80px;
-            }
-            
-            .features, .benefits, .testimonials, .pricing, .cta-section {
-                padding: 70px 0;
-            }
-            
-            .feature-card, .testimonial {
-                padding: 25px;
-            }
-            
-            .plan-price {
-                font-size: 36px;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>世界最著名30个旅游景点 · 官方链接合集</title>
+  <style>
+    :root {
+      --primary: #0d6efd;
+      --primary-dark: #0a58ca;
+      --bg: #f8f9fa;
+      --card-bg: #ffffff;
+      --text: #212529;
+      --muted: #6c757d;
+      --border: #e9ecef;
+      --shadow: 0 4px 20px rgba(0,0,0,0.08);
+      --radius: 16px;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans SC", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    header {
+      background: linear-gradient(135deg, #1a365d 0%, #2b6cb0 50%, #3182ce 100%);
+      color: white;
+      padding: 3.5rem 1.5rem 4rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    header::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      opacity: 0.4;
+    }
+    header h1 {
+      font-size: clamp(1.8rem, 5vw, 2.8rem);
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+      position: relative;
+    }
+    header p {
+      font-size: 1.1rem;
+      opacity: 0.9;
+      max-width: 640px;
+      margin: 0 auto;
+      position: relative;
+    }
+    .container {
+      max-width: 1200px;
+      margin: -2.5rem auto 3rem;
+      padding: 0 1.25rem;
+      position: relative;
+      z-index: 1;
+    }
+    .intro {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 1.75rem 2rem;
+      box-shadow: var(--shadow);
+      margin-bottom: 2rem;
+      text-align: center;
+      font-size: 0.98rem;
+      color: var(--muted);
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.5rem;
+    }
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      display: flex;
+      flex-direction: column;
+    }
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+    }
+    .card-header {
+      background: linear-gradient(135deg, #edf2f7, #e2e8f0);
+      padding: 1.25rem 1.5rem 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .card-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      background: var(--primary);
+      color: white;
+      border-radius: 50%;
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-right: 0.6rem;
+    }
+    .card-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      display: inline;
+      vertical-align: middle;
+    }
+    .card-location {
+      font-size: 0.88rem;
+      color: var(--muted);
+      margin-top: 0.35rem;
+      padding-left: 2.4rem;
+    }
+    .card-body {
+      padding: 1.25rem 1.5rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .card-desc {
+      font-size: 0.95rem;
+      color: #495057;
+      margin-bottom: 1.25rem;
+      flex: 1;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      background: var(--primary);
+      color: white;
+      text-decoration: none;
+      padding: 0.65rem 1.2rem;
+      border-radius: 50px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: background 0.2s;
+      align-self: flex-start;
+    }
+    .btn:hover {
+      background: var(--primary-dark);
+    }
+    .btn svg {
+      width: 16px;
+      height: 16px;
+    }
+    footer {
+      text-align: center;
+      padding: 2rem 1rem 3rem;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+    @media (max-width: 600px) {
+      .grid { grid-template-columns: 1fr; }
+      .card-location { padding-left: 0; }
+    }
+  </style>
 </head>
 <body>
-    <!-- Header & Navigation -->
-    <header>
-        <div class="container">
-            <nav>
-                <div class="logo">
-                    <div class="logo-icon"><i class="fas fa-bezier-curve"></i></div>
-                    <div class="logo-text">Code<span>Flow</span></div>
-                </div>
-                
-                <ul class="nav-links">
-                    <li><a href="#features">Features</a></li>
-                    <li><a href="#benefits">Benefits</a></li>
-                    <li><a href="#testimonials">Testimonials</a></li>
-                    <li><a href="#pricing">Pricing</a></li>
-                    <li><a href="#">Resources</a></li>
-                </ul>
-                
-                <button class="cta-button">Start Free Trial</button>
-                <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
-            </nav>
-        </div>
-    </header>
+  <header>
+    <h1>🌍 世界最著名30个旅游景点</h1>
+    <p>精选全球标志性景点 · 附官方网站直达链接 · 一键跳转浏览</p>
+  </header>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <div class="hero-text">
-                    <h1>Build Apps Faster With <span>Visual Development</span></h1>
-                    <p>CodeFlow empowers teams to create enterprise-grade applications with minimal coding. Drag, drop, and connect components to build powerful web and mobile apps in record time.</p>
-                    <div class="hero-buttons">
-                        <button class="cta-button">Start Building Free</button>
-                        <button class="secondary-button">Watch Demo</button>
-                    </div>
-                </div>
-                <div class="hero-image">
-                    <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="CodeFlow Platform Interface">
-                </div>
-            </div>
-        </div>
-    </section>
+  <div class="container">
+    <div class="intro">
+      本页面收录了全球最广为人知、游客量最大的30个经典景点。每个景点均附有官方或权威管理机构网站链接，方便你直接访问获取最新开放时间、门票预订与参观信息。
+    </div>
 
-    <!-- Features Section -->
-    <section class="features" id="features">
-        <div class="container">
-            <div class="section-title">
-                <h2>Powerful Features for Rapid Development</h2>
-                <p>CodeFlow provides all the tools you need to build, deploy, and scale applications without writing extensive code.</p>
-            </div>
-            
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-th-large"></i>
-                    </div>
-                    <h3>Visual Builder</h3>
-                    <p>Drag and drop UI components to design responsive interfaces. Connect data sources with simple point-and-click actions.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-database"></i>
-                    </div>
-                    <h3>Database Integration</h3>
-                    <p>Connect to any data source with built-in connectors. Automatically generate CRUD operations without writing SQL.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-mobile-alt"></i>
-                    </div>
-                    <h3>Cross-Platform</h3>
-                    <p>Build once, deploy everywhere. Generate applications for web, iOS, and Android from a single visual design.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-code"></i>
-                    </div>
-                    <h3>Extensible with Code</h3>
-                    <p>Add custom functionality with JavaScript when needed. Our platform doesn't limit your creativity or complexity.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
-                    <h3>Enterprise Security</h3>
-                    <p>Built-in authentication, authorization, and data encryption. SOC2 compliant with enterprise-grade security features.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-rocket"></i>
-                    </div>
-                    <h3>One-Click Deployment</h3>
-                    <p>Deploy to cloud or on-premises with a single click. Automatic scaling and monitoring included.</p>
-                </div>
-            </div>
+    <div class="grid">
+      <!-- 1 -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-number">1</span>
+          <h2 class="card-title">埃菲尔铁塔</h2>
+          <div class="card-location">🇫🇷 法国 · 巴黎</div>
         </div>
-    </section>
-
-    <!-- Benefits Section -->
-    <section class="benefits" id="benefits">
-        <div class="container">
-            <div class="section-title">
-                <h2>Why Choose CodeFlow?</h2>
-                <p>Join thousands of companies accelerating their digital transformation with low-code development.</p>
-            </div>
-            
-            <div class="benefits-grid">
-                <div class="benefit-item">
-                    <div class="benefit-icon">
-                        <i class="fas fa-bolt"></i>
-                    </div>
-                    <h3>10x Faster Development</h3>
-                    <p>Build applications in days instead of months with visual development tools.</p>
-                </div>
-                
-                <div class="benefit-item">
-                    <div class="benefit-icon">
-                        <i class="fas fa-money-bill-wave"></i>
-                    </div>
-                    <h3>Reduce Costs by 70%</h3>
-                    <p>Lower development and maintenance costs with fewer resources required.</p>
-                </div>
-                
-                <div class="benefit-item">
-                    <div class="benefit-icon">
-                        <i class="fas fa-users"></i>
-                    </div>
-                    <h3>Citizen Developers</h3>
-                    <p>Enable business users to build solutions with minimal IT assistance.</p>
-                </div>
-                
-                <div class="benefit-item">
-                    <div class="benefit-icon">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                    <h3>Scale Effortlessly</h3>
-                    <p>From prototype to enterprise-scale applications with the same platform.</p>
-                </div>
-            </div>
+        <div class="card-body">
+          <p class="card-desc">巴黎的象征，1889年为世博会而建，高约330米，是世界最著名的铁塔与观景点。</p>
+          <a class="btn" href="https://www.toureiffel.paris/en" target="_blank" rel="noopener">
+            官方网站
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+          </a>
         </div>
-    </section>
+      </div>
 
-    <!-- Testimonials -->
-    <section class="testimonials" id="testimonials">
-        <div class="container">
-            <div class="section-title">
-                <h2>Trusted by Industry Leaders</h2>
-                <p>See what our customers have to say about their experience with CodeFlow.</p>
-            </div>
-            
-            <div class="testimonial-slider">
-                <div class="testimonial">
-                    <div class="testimonial-text">
-                        "CodeFlow transformed how we deliver solutions to our business units. What used to take 6 months now takes 3 weeks. Our development team can focus on complex problems while business teams build their own solutions."
-                    </div>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">SC</div>
-                        <div class="author-info">
-                            <h4>Sarah Chen</h4>
-                            <p>CTO, TechGrowth Inc.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+      <!-- 2 -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-number">2</span>
+          <h2 class="card-title">罗马斗兽场</h2>
+          <div class="card-location">🇮🇹 意大利 · 罗马</div>
         </div>
-    </section>
-
-    <!-- Pricing Section -->
-    <section class="pricing" id="pricing">
-        <div class="container">
-            <div class="section-title">
-                <h2>Simple, Transparent Pricing</h2>
-                <p>Choose the plan that fits your needs. All plans include core features with no hidden fees.</p>
-            </div>
-            
-            <div class="pricing-grid">
-                <div class="pricing-card">
-                    <h3 class="plan-name">Starter</h3>
-                    <div class="plan-price">$29<span>/month</span></div>
-                    <ul class="plan-features">
-                        <li>Up to 5 users</li>
-                        <li>10 GB storage</li>
-                        <li>Basic components</li>
-                        <li>Community support</li>
-                        <li>1 production app</li>
-                    </ul>
-                    <button class="secondary-button">Get Started</button>
-                </div>
-                
-                <div class="pricing-card featured">
-                    <div class="featured-badge">Most Popular</div>
-                    <h3 class="plan-name">Professional</h3>
-                    <div class="plan-price">$89<span>/month</span></div>
-                    <ul class="plan-features">
-                        <li>Up to 25 users</li>
-                        <li>100 GB storage</li>
-                        <li>All components</li>
-                        <li>Priority support</li>
-                        <li>10 production apps</li>
-                        <li>Custom branding</li>
-                    </ul>
-                    <button class="cta-button">Try Free for 14 Days</button>
-                </div>
-                
-                <div class="pricing-card">
-                    <h3 class="plan-name">Enterprise</h3>
-                    <div class="plan-price">Custom</div>
-                    <ul class="plan-features">
-                        <li>Unlimited users</li>
-                        <li>Unlimited storage</li>
-                        <li>All features included</li>
-                        <li>24/7 dedicated support</li>
-                        <li>Unlimited apps</li>
-                        <li>On-premises option</li>
-                    </ul>
-                    <button class="secondary-button">Contact Sales</button>
-                </div>
-            </div>
+        <div class="card-body">
+          <p class="card-desc">古罗马最大的圆形剧场，建于公元1世纪，是罗马帝国的象征与世界遗产。</p>
+          <a class="btn" href="https://colosseo.it/en/" target="_blank" rel="noopener">
+            官方网站
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+          </a>
         </div>
-    </section>
+      </div>
 
-    <!-- CTA Section -->
-    <section class="cta-section">
-        <div class="container">
-            <h2>Start Building Today</h2>
-            <p>Join over 10,000 companies that use CodeFlow to accelerate their application development. No credit card required for the free trial.</p>
-            <button class="cta-button">Get Started for Free</button>
+      <!-- 3 -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-number">3</span>
+          <h2 class="card-title">泰姬陵</h2>
+          <div class="card-location">🇮🇳 印度 · 阿格拉</div>
         </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-column">
-                    <div class="logo">
-                        <div class="logo-icon"><i class="fas fa-bezier-curve"></i></div>
-                        <div class="logo-text">Code<span>Flow</span></div>
-                    </div>
-                    <p style="margin-top: 20px; color: #aaa;">The leading visual development platform for building enterprise applications with minimal coding.</p>
-                </div>
-                
-                <div class="footer-column">
-                    <h3>Product</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">Features</a></li>
-                        <li><a href="#">Pricing</a></li>
-                        <li><a href="#">Use Cases</a></li>
-                        <li><a href="#">Integrations</a></li>
-                        <li><a href="#">Roadmap</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-column">
-                    <h3>Resources</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">Documentation</a></li>
-                        <li><a href="#">Tutorials</a></li>
-                        <li><a href="#">Blog</a></li>
-                        <li><a href="#">Community</a></li>
-                        <li><a href="#">Support</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-column">
-                    <h3>Company</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Careers</a></li>
-                        <li><a href="#">Contact</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Terms of Service</a></li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="copyright">
-                <p>&copy; 2023 CodeFlow. All rights reserved.</p>
-            </div>
+        <div class="card-body">
+          <p class="card-desc">莫卧儿皇帝沙贾汗为纪念爱妃所建的白色大理石陵墓，被誉为“永恒爱情的象征”。</p>
+          <a class="btn" href="https://www.tajmahal.gov.in/" target="_blank" rel="noopener">
+            官方网站
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+          </a>
         </div>
-    </footer>
+      </div>
 
-    <script>
-        // Mobile menu toggle
-        document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
-            const navLinks = document.querySelector('.nav-links');
-            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
-            
-            // Adjust for mobile
-            if (window.innerWidth <= 768) {
-                if (navLinks.style.display === 'flex') {
-                    navLinks.style.flexDirection = 'column';
-                    navLinks.style.position = 'absolute';
-                    navLinks.style.top = '80px';
-                    navLinks.style.left = '0';
-                    navLinks.style.width = '100%';
-                    navLinks.style.backgroundColor = 'white';
-                    navLinks.style.padding = '20px';
-                    navLinks.style.boxShadow = '0 10px 20px rgba(0,0,0,0.1)';
-                    
-                    const navItems = document.querySelectorAll('.nav-links li');
-                    navItems.forEach(item => {
-                        item.style.margin = '10px 0';
-                    });
-                }
-            }
-        });
-        
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                if(targetId === '#') return;
-                
-                const targetElement = document.querySelector(targetId);
-                if(targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
-                    
-                    // Close mobile menu if open
-                    if(window.innerWidth <= 768) {
-                        document.querySelector('.nav-links').style.display = 'none';
-                    }
-                }
-            });
-        });
-        
-        // Simple testimonial slider
-        const testimonials = [
-            {
-                text: "CodeFlow transformed how we deliver solutions to our business units. What used to take 6 months now takes 3 weeks. Our development team can focus on complex problems while business teams build their own solutions.",
-                name: "Sarah Chen",
-                position: "CTO, TechGrowth Inc.",
-                initials: "SC"
-            },
-            {
-                text: "We reduced our app development time by 80% using CodeFlow. The visual interface made it easy for our analysts to build data dashboards without waiting for IT resources.",
-                name: "Marcus Johnson",
-                position: "Director of Operations, DataCorp",
-                initials: "MJ"
-            },
-            {
-                text: "As a non-technical founder, CodeFlow allowed me to build our MVP in just 2 months. I could test ideas quickly and iterate based on user feedback without deep coding knowledge.",
-                name: "Lisa Wang",
-                position: "Founder, StartupLabs",
-                initials: "LW"
-            }
-        ];
-        
-        let currentTestimonial = 0;
-        const testimonialElement = document.querySelector('.testimonial');
-        
-        function rotateTestimonial() {
-            currentTestimonial = (currentTestimonial + 1) % testimonials.length;
-            updateTestimonial();
-        }
-        
-        function updateTestimonial() {
-            const testimonial = testimonials[currentTestimonial];
-            testimonialElement.innerHTML = `
-                <div class="testimonial-text">"${testimonial.text}"</div>
-                <div class="testimonial-author">
-                    <div class="author-avatar">${testimonial.initials}</div>
-                    <div class="author-info">
-                        <h4>${testimonial.name}</h4>
-                        <p>${testimonial.position}</p>
-                    </div>
-                </div>
-            `;
-        }
-        
-        // Auto-rotate testimonials every 5 seconds
-        setInterval(rotateTestimonial, 5000);
-        
-        // CTA button interactions
-        document.querySelectorAll('.cta-button').forEach(button => {
-            button.addEventListener('click', function() {
-                alert('Thank you for your interest in CodeFlow! You would be redirected to the signup page in a real implementation.');
-            });
-        });
-        
-        // Pricing card interactions
-        document.querySelectorAll('.pricing-card button').forEach(button => {
-            button.addEventListener('click', function() {
-                const planName = this.closest('.pricing-card').querySelector('.plan-name').textContent;
-                alert(`You selected the ${planName} plan. In a real implementation, you would be redirected to the checkout process.`);
-            });
-        });
-    </script>
+      <!-- 4 -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-number">4</span>
+          <h2 class="card-title">长城（八达岭）</h2>
+          <div class="card-location">🇨🇳 中国 · 北京</div>
+        </div>
+        <div class="card-body">
+          <p class="card-desc">世界最长的军事防御工程，八达岭段是保存最完好、游客最多的部分之一。</p>
+          <a class="btn" href="https://www.badaling.cn/" target="_blank" rel="noopener">
+            官方网站
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- 5 -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-number">5</span>
+          <h2 class="card-title">自由女神像</h2>
+          <div class="card-location">🇺🇸 美国 · 纽约</div>
+        </div>
+        <div class="card-body">
+          <p class="card-desc">法国赠予美国的友谊礼物，象征自由与民主，坐落于纽约港自由岛。</p>
+          <a class="btn" href="https://www.nps.gov/stli/" target="_blank" rel="noopener">
+            官方网站
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- 6 -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-number">6</span>
+          <h2 class="card-title">马丘比丘</h2>
+          <div class="card-location">🇵🇪 秘鲁 · 库斯科</div>
+        </div>
+        <div class="card-body">
+          <p class="card-desc">印加帝国失落的古城，坐落于安第斯山脉云雾之中，被誉为“世界新七大奇迹”之一。</p>
+          <a class="btn" href="https://www.machupicchu.gob.pe/" target="_blank" rel="noopener">
+            官方网站
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- 7 -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-number">7</span>
+          <h2 class="card-title">吉萨金字塔群</h2>
+          <div class="card-location">🇪🇬 埃及 · 开罗近郊</div>
+        </div>
+        <div class="card-body">
+          <p class="card-desc">古代世界七大奇迹中唯一存世者，包括胡夫大金字塔与狮身人面像。</p>
+          <a class="btn" href="https://egymonuments.gov.eg/" target="_blank" rel="noopener">
+            官方网站
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- 8 -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-number">8</span>
+          <h2 class="card-title">悉尼歌剧院</h2>
+          <div class="card-location">🇦🇺 澳大利亚 · 悉尼</div>
+        </div>
+        <div class="card-body">
+          <p class="card-desc">世界最具辨识度的现代建筑之一，帆船造型成为澳大利亚的国家象征。</p>
+          <a class="btn" href="https://www.sydneyoperahouse.com/" target="_blank" rel="noopener">
+            官方网站
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- 9 -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-number">9</span>
+          <h2 class="card-title">基督救世主雕像</h2>
+          <div class="card-location">🇧🇷 巴西 · 里约热内卢</div>
+        </div>
+        <div class="card-body">
+          <p class="card-desc">高约30米的巨大耶稣雕像，矗立于科科瓦多山顶，俯瞰整个里约。</p>
+          <a class="btn" href="https://www.cristoredentor.com.br/" target="_blank" rel="noopener">
+            官方网站
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- 10 -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-number">10</span>
+          <h2 class="card-title">大峡谷国家公园</h2>
+          <div class="card-location">🇺🇸 美国 · 亚利桑那</div>
+        </div>
+        <div class="card-body">
+          <p class="card-desc">科罗拉多河切割出的壮丽峡谷，深约1.6公里，是地球上最壮观的自然奇观之一。</p>
+          <a class="btn" href="https://www.nps.gov/grca/" target="_blank" rel="noopener">
+            官方网站
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- 11 -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-number">11</span>
+          <h2 class="card-title">圣家堂</h2>
+          <div class="card-location">🇪🇸 西班牙 · 巴塞罗那</div>
+        </div>
+        <div class="card-body">
+          <p class="card-desc">安东尼·高迪设计的未完成杰作，独特哥特与现代主义风格的建筑奇迹。</p>
+          <a class="btn" href="https://sagradafamilia.org/en/" target="_blank" rel="noopener">
+            官方网站
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- 12 -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-number">12</span>
+          <h2 class="card-title">故宫（紫禁城）</h2>
+          <div class="card-location">🇨🇳 中国 · 北京</div>
+        </div>
+        <div class="card-body">
+          <p class="card-desc">明清两代皇宫，世界上保存最完整、规模最大的木质结构古建筑群。</p>
+          <a class="btn" href="https://www.dpm.org.cn/" target="_blank" rel="noopener">
+            官方网站
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- 13 -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-number">13</span>
+          <h2 class="card-title">卢浮宫</h2>
+          <div class="card-location">🇫🇷 法国 · 巴黎</div>
+        </div>
+        <div class="card-body">
+          <p class="card-desc">世界最大、最著名的博物馆之一，收藏《蒙娜丽莎》等无数艺术珍品。</p>
+          <a class="btn" href="https://www.louvre.fr/en" target="_blank" rel="noopener">
+            官方网站
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- 14 -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-number">14</span>
+          <h2 class="card-title">吴哥窟</h2>
+          <div class="card-location">🇰🇭 柬埔寨 · 暹粒</div>
+        </div>
+        <div class="card-body">
+          <p class="card-desc">世界上最大的宗教建筑群，高棉帝国的辉煌遗迹，被誉为东方奇迹。</p>
+          <a class="btn" href="https://www.angkorenterprise.gov.kh/" target="_blank" rel="noopener">
+            官方网站
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- 15 -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-number">15</span>
+          <h2 class="card-title">佩特拉古城</h2>
+          <div class="card-location">🇯🇴 约旦</div>
+        </div>
+        <div class="card-body">
+          <p class="card-desc">纳巴泰人开凿于玫瑰色岩石中的古城，被称为“玫瑰之城”。</p>
+          <a class="btn" href="https://www.visitpetra.jo/" target="_blank" rel="noopener">
+            官方网站
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- 16 -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-number">16</span>
+          <h2 class="card-title">凡尔赛宫</h2>
+          <div class="card-location">🇫🇷 法国 · 凡尔赛</div>
+        </div>
+        <div class="card-body">
+          <p class="card-desc">法国绝对君主制的象征，拥有镜厅与壮丽花园的欧洲最豪华王宫。</p>
+          <a class="btn" href="https://www.chateauversailles.fr/en" target="_blank" rel="noopener">
+            官方网站
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- 17 -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-number">17</span>
+          <h2 class="card-title">圣彼得大教堂</h2>
+          <div class="card-location">🇻🇦 梵蒂冈</div>
+        </div>
+        <div class="card-body">
+          <p class="card-desc">天主教世界最重要的教堂，米开朗基罗穹顶与贝尼尼广场令人震撼。</p>
+          <a class="btn" href="https://www.vatican.va/various/basiliche/san_pietro/index_en.htm" target="_blank" rel="noopener">
+            官方网站
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- 18 -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-number">18</span>
+          <h2 class="card-title">雅典卫城</h2>
+          <div class="card-location">🇬🇷 希腊 · 雅典</div>
+        </div>
+        <div class="card-body">
+          <p class="card-desc">古希腊文明的巅峰之作，帕特农神庙矗立其上，象征民主与艺术的黄金时代。</p>
+          <a class="btn" href="https://www.acropolisofathens.gr/" target="_blank" rel="noopener">
+            官方网站
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- 19 -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-number">19</span>
+          <h2 class="card-title">尼亚加拉大瀑布</h2>
+          <div class="card-location">🇨🇦/🇺🇸 加拿大 · 美国边境</div>
+        </div>
+        <div class="card-body">
+          <p class="card-desc">北美最著名的瀑布群，马蹄瀑布气势磅礴，可乘船近距离体验水雾。</p>
+          <a class="btn" href="https://www.niagarafallsstatepark.com/" target="_blank" rel="noopener">
+            官方网站
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- 20 -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-number">20</span>
+          <h2 class="card-title">帝国大厦</h2>
+          <div class="card-location">🇺🇸 美国 · 纽约</div>
+        </div>
+        <div class="card-body">
+          <p class="card-desc">纽约地标性摩天大楼，曾长期保持世界最高建筑纪录，观景台视野绝佳。</p>
+          <a class="btn" href="https://www.esbnyc.com/" target="_blank" rel="noopener">
+            官方网站
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- 21 -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-number">21</span>
+          <h2 class="card-title">哈利法塔</h2>
+          <div class="card-location">🇦🇪 阿联酋 · 迪拜</div>
+        </div>
+        <div class="card-body">
+          <p class="card-desc">目前世界最高建筑，高828米，观景台可俯瞰迪拜全景与阿拉伯湾。</p>
+          <a class="btn" href="https://www.burjkhalifa.ae/" target="_blank" rel="noopener">
+            官方网站
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- 22 -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-number">22</span>
+          <h2 class="card-title">圣巴西尔大教堂</h2>
+          <div class="card-location">🇷🇺 俄罗斯 · 莫斯科</div>
+        </div>
+        <div class="card-body">
+          <p class="card-desc">红场上色彩斑斓的洋葱头教堂，是莫斯科最标志性的建筑。</p>
+          <a class="btn" href="https://www.shm.ru/en/" target="_blank" rel="noopener">
+            官方网站
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- 23 -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-number">23</span>
+          <h2 class="card-title">巨石阵</h2>
+          <div class="card-location">🇬🇧 英国 · 威尔特郡</div>
+        </div>
+        <div class="card-body">
+          <p class="card-desc">史前巨石遗迹，约建于公元前3000–2000年，用途至今仍充满神秘。</p>
+          <a class="btn" href="https://www.english-heritage.org.uk/visit/places/stonehenge/" target="_blank" rel="noopener">
+            官方网站
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- 24 -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-number">24</span>
+          <h2 class="card-title">奇琴伊察</h2>
+          <div class="card-location">🇲🇽 墨西哥 · 尤卡坦</div>
+        </div>
+        <div class="card-body">
+          <p class="card-desc">玛雅文明最重要的遗址之一，库库尔坎金字塔在春分/秋分会呈现光影蛇形。</p>
+          <a class="btn" href="https://www.inah.gob.mx/" target="_blank" rel="noopener">
+            官方网站
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- 25 -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-number">25</span>
+          <h2 class="card-title">富士山</h2>
+          <div class="card-location">🇯🇵 日本</div>
+        </div>
+        <div class="card-body">
+          <p class="card-desc">日本最高峰与国家象征，完美的圆锥火山外形吸引无数登山者与摄影师。</p>
+          <a class="btn" href="https://www.fujisan-climb.jp/en/" target="_blank" rel="noopener">
+            官方网站
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- 26 -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-number">26</span>
+          <h2 class="card-title">黄石国家公园</h2>
+          <div class="card-location">🇺🇸 美国 · 怀俄明等</div>
+        </div>
+        <div class="card-body">
+          <p class="card-desc">世界第一个国家公园，拥有间歇泉、温泉与丰富野生动物，自然奇观汇集。</p>
+          <a class="btn" href="https://www.nps.gov/yell/" target="_blank" rel="noopener">
+            官方网站
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- 27 -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-number">27</span>
+          <h2 class="card-title">阿尔罕布拉宫</h2>
+          <div class="card-location">🇪🇸 西班牙 · 格拉纳达</div>
+        </div>
+        <div class="card-body">
+          <p class="card-desc">摩尔人统治时期留下的宫殿城堡，精美的伊斯兰建筑与庭院艺术巅峰。</p>
+          <a class="btn" href="https://www.alhambra-patronato.es/en" target="_blank" rel="noopener">
+            官方网站
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- 28 -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-number">28</span>
+          <h2 class="card-title">下龙湾</h2>
+          <div class="card-location">🇻🇳 越南</div>
+        </div>
+        <div class="card-body">
+          <p class="card-desc">数千座石灰岩岛屿与溶洞构成的海上仙境，被列入世界自然遗产。</p>
+          <a class="btn" href="https://www.halongbay.com.vn/" target="_blank" rel="noopener">
+            官方网站
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- 29 -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-number">29</span>
+          <h2 class="card-title">圣索菲亚大教堂</h2>
+          <div class="card-location">🇹🇷 土耳其 · 伊斯坦布尔</div>
+        </div>
+        <div class="card-body">
+          <p class="card-desc">拜占庭建筑的巅峰之作，先后作为教堂、清真寺与博物馆，历史层层叠叠。</p>
+          <a class="btn" href="https://muze.gen.tr/muze-detay/ayasofya" target="_blank" rel="noopener">
+            官方网站
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- 30 -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-number">30</span>
+          <h2 class="card-title">蒙特圣米歇尔</h2>
+          <div class="card-location">🇫🇷 法国 · 诺曼底</div>
+        </div>
+        <div class="card-body">
+          <p class="card-desc">潮汐岛上的中世纪修道院，随潮汐时而与大陆相连、时而孤立海中，如童话城堡。</p>
+          <a class="btn" href="https://www.ot-montsaintmichel.com/en/" target="_blank" rel="noopener">
+            官方网站
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>世界最著名30个旅游景点合集 · 仅供参考 · 建议出行前再次确认官方最新信息</p>
+    <p style="margin-top:0.5rem;font-size:0.85rem;">链接指向各景点官方或权威管理机构网站</p>
+  </footer>
 </body>
 </html>
